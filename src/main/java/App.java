@@ -17,13 +17,13 @@ public class App {
 
     public void run() {
         System.out.println("== 명언 SSG ==");
-
         outer:
         while (true) {
             System.out.print("명령) ");
             String cmd = sc.nextLine().trim();
+            Rq rq = new Rq(cmd);
 
-            switch (cmd) {
+            switch (rq.getPath()) {
                 case "종료":
                     break outer;
                 case "등록":
@@ -32,8 +32,41 @@ public class App {
                 case "목록":
                     list();
                     break;
+                case "삭제":
+                    remove(rq);
+                    break;
             }
         }
+    }
+
+    private void remove(Rq rq) {
+        int id = rq.getIntParam("id", 0);
+
+        if (id == 0) {
+            System.out.println("번호를 입력해주세요.");
+            return;
+        }
+
+        WiseSaying wiseSaying = findById(id);
+
+        if (wiseSaying == null) {
+            System.out.printf("%d번 명언은 존재하지 않습니다.\n", id);
+            return;
+        }
+
+        wiseSayings.remove(wiseSaying);
+
+        System.out.printf("%d번 명언이 삭제되었습니다.\n", id);
+    }
+
+    private WiseSaying findById(int id) {
+        for (WiseSaying wiseSaying : wiseSayings) {
+            if (wiseSaying.id == id) {
+                return wiseSaying;
+            }
+        }
+
+        return null;
     }
 
     private void list() {

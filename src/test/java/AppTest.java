@@ -108,4 +108,27 @@ class AppTest {
         assertThat(s).contains("1 / 김도율 / 배고파");
         assertThat(s).contains("2 / 사자 / 나도 배고파");
     }
+
+    @Test
+    @DisplayName("명언 삭제")
+    public void deleteTest() {
+        String rs = AppTestRunner.run("""
+            등록
+            나의 죽음을 적들에게 알리지 말라
+            이순신
+            등록
+            나에게 불가능이란 없다.
+            나폴레옹
+            삭제?id=1
+            목록
+            삭제?id=1
+            종료
+            """);
+
+        assertThat(rs).contains("1번 명언이 삭제되었습니다.");
+        assertThat(rs).contains("2 / 나폴레옹 / 나에게 불가능이란 없다.");
+        assertThat(rs).doesNotContain("1 / 이순신 / 나의 죽음을 적들에게 알리지 말라");
+        assertThat(rs).contains("1번 명언은 존재하지 않습니다.");
+    }
+
 }
