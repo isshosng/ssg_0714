@@ -35,5 +35,17 @@ class AppTest {
         //then
         assertThat(s).isEqualTo("안녕");
     }
+    @Test
+    @DisplayName("문자열을 파일에 저장")
+    void saveStringToFile() {
+        //given
+        Util.file.mkdir("test_data");
+        Util.file.saveToFile("test_data/1.txt","안녕");
+        //when
+        String body = Util.file.readFromFile("test_data/1.txt");
+
+        //then
+        assertThat(body).isEqualTo("안녕");
+    }
 
 }
