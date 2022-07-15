@@ -131,4 +131,26 @@ class AppTest {
         assertThat(rs).contains("1번 명언은 존재하지 않습니다.");
     }
 
+    @Test
+    @DisplayName("명언 수정")
+    public void modify() {
+        String rs = AppTestRunner.run("""
+            등록
+            나의 죽음을 적들에게 알리지 말라
+            이순신
+            등록
+            나에게 불가능이란 없다.
+            나폴레옹
+            목록
+            수정?id=1
+            나의 죽음을 적들에게 알리지 마라!
+            이순신장군
+            목록
+            종료
+            """);
+
+        assertThat(rs).contains("1 / 이순신 / 나의 죽음을 적들에게 알리지 말라");
+        assertThat(rs).contains("1 / 이순신장군 / 나의 죽음을 적들에게 알리지 마라!");
+    }
+
 }
