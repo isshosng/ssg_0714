@@ -48,4 +48,20 @@ class AppTest {
         assertThat(body).isEqualTo("안녕");
     }
 
+    @Test
+    @DisplayName("프로그램 실행 및 종료")
+    void runTest() {
+        //given
+        Scanner sc = TestUtil.genScanner("종료");
+        ByteArrayOutputStream output = TestUtil.setOutToByteArray();
+
+        //when
+        new App(sc).run();
+
+        String s = output.toString();
+        TestUtil.clearSetOutToByteArray(output);
+        //then
+        assertThat(s).isEqualTo("== 명언 SSG ==\n명령) ");
+    }
+
 }
