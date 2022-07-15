@@ -88,4 +88,24 @@ class AppTest {
         assertThat(s).contains("1번 명언이 등록되었습니다.");
         assertThat(s).contains("2번 명언이 등록되었습니다.");
     }
+
+    @Test
+    @DisplayName("등록 후 목록에서 확인할 수 있다.")
+    void listTest() {
+        String s = AppTestRunner.run("""
+            등록
+            배고파
+            김도율
+            등록
+            나도 배고파
+            사자
+            목록
+            종료
+            """);
+
+        assertThat(s).contains("번호 / 작가 / 명언");
+        assertThat(s).contains("----------------------");
+        assertThat(s).contains("1 / 김도율 / 배고파");
+        assertThat(s).contains("2 / 사자 / 나도 배고파");
+    }
 }
