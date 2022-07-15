@@ -72,4 +72,20 @@ class AppTest {
         assertThat(s).contains("작가를 입력하세요: ");
     }
 
+    @Test
+    @DisplayName("등록시 명언의 번호가 출력")
+    void writeTest2() {
+        String s = AppTestRunner.run("""
+            등록
+            배고파
+            김도율
+            등록
+            나도 배고파
+            사자
+            종료
+            """);
+
+        assertThat(s).contains("1번 명언이 등록되었습니다.");
+        assertThat(s).contains("2번 명언이 등록되었습니다.");
+    }
 }
