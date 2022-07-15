@@ -53,36 +53,21 @@ class AppTest {
     @Test
     @DisplayName("프로그램 실행 및 종료")
     void runTest() {
-        //given
-        Scanner sc = TestUtil.genScanner("종료");
-        ByteArrayOutputStream output = TestUtil.setOutToByteArray();
+        String s = AppTestRunner.run("종료");
 
-        //when
-        new App(sc).run();
-
-        String s = output.toString();
-        TestUtil.clearSetOutToByteArray(output);
-        //then
         assertThat(s).isEqualTo("== 명언 SSG ==\n명령) ");
     }
 
     @Test
     @DisplayName("등록시 명언과 작가 입력을 요구한다.")
     void writeTest() {
-        //given
-        Scanner sc = TestUtil.genScanner("""
+        String s = AppTestRunner.run("""
             등록
             배고파
             김도율
             종료
             """);
-        ByteArrayOutputStream out = TestUtil.setOutToByteArray();
-        //when
-        new App(sc).run();
-        String s = out.toString();
-        TestUtil.clearSetOutToByteArray(out);
 
-        //then
         assertThat(s).contains("명언을 입력하세요: ");
         assertThat(s).contains("작가를 입력하세요: ");
     }
